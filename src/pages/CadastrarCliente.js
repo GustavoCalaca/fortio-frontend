@@ -2,6 +2,34 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cadastrarCliente } from "../api";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+} from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+// 🔹 Função para formatar CNPJ
+const formatCNPJ = (value) => {
+  return value
+    .replace(/\D/g, "") // remove não-numéricos
+    .replace(/^(\d{2})(\d)/, "$1.$2")
+    .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1/$2")
+    .replace(/(\d{4})(\d)/, "$1-$2")
+    .slice(0, 18); // limita ao tamanho do CNPJ
+};
+
+// 🔹 Função para formatar CEP
+const formatCEP = (value) => {
+  return value
+    .replace(/\D/g, "") // só números
+    .replace(/^(\d{5})(\d)/, "$1-$2")
+    .slice(0, 9); // limita ao tamanho do CEP
+};
 
 export default function CadastrarCliente() {
   const [form, setForm] = useState({
@@ -12,7 +40,14 @@ export default function CadastrarCliente() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]:
+        name === "cnpj" ? formatCNPJ(value) :
+        name === "cep" ? formatCEP(value) :
+        value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -22,20 +57,107 @@ export default function CadastrarCliente() {
   };
 
   return (
-    <div>
-      <h1>Cadastrar Cliente</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="nome" placeholder="Nome" value={form.nome} onChange={handleChange} />
-        <input name="cnpj" placeholder="CNPJ" value={form.cnpj} onChange={handleChange} />
-        <input name="segmento" placeholder="Segmento" value={form.segmento} onChange={handleChange} />
-        <input name="cep" placeholder="CEP" value={form.cep} onChange={handleChange} />
-        <input name="endereco" placeholder="Endereço" value={form.endereco} onChange={handleChange} />
-        <input name="numero" placeholder="Número" value={form.numero} onChange={handleChange} />
-        <input name="bairro" placeholder="Bairro" value={form.bairro} onChange={handleChange} />
-        <input name="cidade" placeholder="Cidade" value={form.cidade} onChange={handleChange} />
-        <input name="estado" placeholder="Estado" value={form.estado} onChange={handleChange} />
-        <button type="submit">SALVAR</button>
-      </form>
-    </div>
+    <Box display="flex" justifyContent="center" mt={4}>
+      <Paper elevation={3} sx={{ p: 4, width: 400 }}>
+        <Typography variant="h5" align="center" gutterBottom>
+          Cadastrar Cliente
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Nome"
+            name="nome"
+            value={form.nome}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            label="CNPJ"
+            name="cnpj"
+            value={form.cnpj}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            label="Segmento"
+            name="segmento"
+            value={form.segmento}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="CEP"
+            name="cep"
+            value={form.cep}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Endereço"
+            name="endereco"
+            value={form.endereco}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Número"
+            name="numero"
+            value={form.numero}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Bairro"
+            name="bairro"
+            value={form.bairro}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Cidade"
+            name="cidade"
+            value={form.cidade}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Estado"
+            name="estado"
+            value={form.estado}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+
+          <Box display="flex" justifyContent="space-between" mt={2}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              startIcon={<ArrowBackIcon />}
+              onClick={() => navigate(-1)}
+            >
+              Voltar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              startIcon={<SaveIcon />}
+            >
+              Salvar
+            </Button>
+          </Box>
+        </form>
+      </Paper>
+    </Box>
   );
 }
