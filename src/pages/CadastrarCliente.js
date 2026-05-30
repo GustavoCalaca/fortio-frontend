@@ -12,23 +12,21 @@ import {
 import SaveIcon from "@mui/icons-material/Save";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-// 🔹 Função para formatar CNPJ
 const formatCNPJ = (value) => {
   return value
-    .replace(/\D/g, "") // remove não-numéricos
+    .replace(/\D/g, "")
     .replace(/^(\d{2})(\d)/, "$1.$2")
     .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
     .replace(/\.(\d{3})(\d)/, ".$1/$2")
     .replace(/(\d{4})(\d)/, "$1-$2")
-    .slice(0, 18); // limita ao tamanho do CNPJ
+    .slice(0, 18);
 };
 
-// 🔹 Função para formatar CEP
 const formatCEP = (value) => {
   return value
-    .replace(/\D/g, "") // só números
+    .replace(/\D/g, "")
     .replace(/^(\d{5})(\d)/, "$1-$2")
-    .slice(0, 9); // limita ao tamanho do CEP
+    .slice(0, 9);
 };
 
 export default function CadastrarCliente() {
@@ -57,86 +55,40 @@ export default function CadastrarCliente() {
   };
 
   return (
-    <Box display="flex" justifyContent="center" mt={4}>
-      <Paper elevation={3} sx={{ p: 4, width: 400 }}>
-        <Typography variant="h5" align="center" gutterBottom>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(to right, green, orange)",
+        p: 4,
+        backgroundImage: "url('/gestaotech.png')",   // 🔹 logo no fundo
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",                // 🔹 centralizada
+        backgroundSize: "300px auto",                // 🔹 tamanho da logo
+        opacity: 0.95                                // 🔹 leve transparência
+      }}
+    >
+      <Paper elevation={3} sx={{ p: 4, width: 400, bgcolor: "rgba(255,255,255,0.9)" }}>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          color="primary"
+        >
           Cadastrar Cliente
         </Typography>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Nome"
-            name="nome"
-            value={form.nome}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            required
-          />
-          <TextField
-            label="CNPJ"
-            name="cnpj"
-            value={form.cnpj}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            required
-          />
-          <TextField
-            label="Segmento"
-            name="segmento"
-            value={form.segmento}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="CEP"
-            name="cep"
-            value={form.cep}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Endereço"
-            name="endereco"
-            value={form.endereco}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Número"
-            name="numero"
-            value={form.numero}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Bairro"
-            name="bairro"
-            value={form.bairro}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Cidade"
-            name="cidade"
-            value={form.cidade}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Estado"
-            name="estado"
-            value={form.estado}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
+          <TextField label="Nome" name="nome" value={form.nome} onChange={handleChange} fullWidth margin="normal" required />
+          <TextField label="CNPJ" name="cnpj" value={form.cnpj} onChange={handleChange} fullWidth margin="normal" required />
+          <TextField label="Segmento" name="segmento" value={form.segmento} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="CEP" name="cep" value={form.cep} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Endereço" name="endereco" value={form.endereco} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Número" name="numero" value={form.numero} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Bairro" name="bairro" value={form.bairro} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Cidade" name="cidade" value={form.cidade} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Estado" name="estado" value={form.estado} onChange={handleChange} fullWidth margin="normal" />
 
           <Box display="flex" justifyContent="space-between" mt={2}>
             <Button
