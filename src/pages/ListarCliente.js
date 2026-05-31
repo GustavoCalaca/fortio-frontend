@@ -1,4 +1,3 @@
-// src/pages/ListarCliente.js
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { listarCliente, deletarCliente, listarClientePorId } from "../api";
@@ -21,7 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 
-// 🔹 Gráfico simples do MUI X Charts
+// 🔹 Gráfico do MUI X Charts
 import { PieChart } from '@mui/x-charts/PieChart';
 
 export default function ListarCliente() {
@@ -64,7 +63,7 @@ export default function ListarCliente() {
       return acc;
     }, {});
 
-    const total = clientes.length || 1; // evita divisão por zero
+    const total = clientes.length || 1; 
 
     return Object.entries(counts).map(([label, value], index) => {
       const percent = ((value / total) * 100).toFixed(1);
@@ -179,7 +178,7 @@ export default function ListarCliente() {
       <img
         src="/gestaotech.png"
         alt="Logo Gestão Tech"
-        style={{ width: 160, height: "auto" }} // 🔹 aumentei o tamanho
+        style={{ width: 160, height: "auto" }} 
       />
       <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
         Gestão Tech
